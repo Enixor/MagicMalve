@@ -1,0 +1,17 @@
+name: MagicMalve
+version: @version@
+main: io.github.enixor.minecraft.MagicMalvePlugin
+api-version: 1.17
+authors: [ Enixor ]
+description: Use different spells through magic wand
+depend: [ SmartInvs ]
+
+permissions:
+  magicmalve.admin:
+    default: op
+  magicmalve.wand:
+    default: true
+
+commands:
+  magicmalve:
+    aliases: [ spells ]

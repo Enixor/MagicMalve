@@ -1,0 +1,15 @@
+wand:
+  # Item for wand. Default = STICK.
+  material: "stick"
+
+  # Display name for wand. Default = Wand.
+  display-name: "&aThe great wand!"
+  # Display name coloring. Default = 0x55ff55 (green).
+  display-name-color: 0x55ff55
+
+  # Lore for wand. Default = empty.
+  lore:
+    - "&aExample lore for wand."
+    - "&cExample second line for wand."
+  # Lore coloring. Default = 0xaaaaaa (gray).
+  lore-color: 0xaaaaaa
