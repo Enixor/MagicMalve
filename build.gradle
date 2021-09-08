@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
     implementation 'dev.triumphteam:triumph-gui:3.0.2'
 }
 
