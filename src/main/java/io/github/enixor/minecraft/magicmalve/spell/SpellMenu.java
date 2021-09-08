@@ -3,20 +3,27 @@ package io.github.enixor.minecraft.magicmalve.spell;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import dev.triumphteam.gui.guis.PaginatedGui;
-import io.github.enixor.minecraft.magicmalve.MagicMalvePlugin;
+import io.github.enixor.minecraft.magicmalve.sound.SoundManager;
 import io.github.enixor.minecraft.magicmalve.sound.SoundType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Server;
 import org.bukkit.entity.HumanEntity;
 
 import java.util.UUID;
 
 public class SpellMenu {
 
-    private final MagicMalvePlugin plugin;
+    private final Server server;
+    private final SpellRegistry spellRegistry;
+    private final ActiveSpellManager activeSpellManager;
+    private final SoundManager soundManager;
 
-    public SpellMenu(MagicMalvePlugin plugin) {
-        this.plugin = plugin;
+    public SpellMenu(Server server, SpellRegistry spellRegistry, ActiveSpellManager activeSpellManager, SoundManager soundManager) {
+        this.server = server;
+        this.spellRegistry = spellRegistry;
+        this.activeSpellManager = activeSpellManager;
+        this.soundManager = soundManager;
     }
 
     public void open(UUID playerId) {
@@ -25,12 +32,12 @@ public class SpellMenu {
                 .rows(4)
                 .create();
 
-        ActiveSpellManager activeSpellManager = this.plugin.getActiveSpellManager();
-        this.plugin.getSpellRegistry().getSpells().forEach(spell ->
-                gui.addItem(new GuiItem(spell.getItemStack(), event -> activeSpellManager.setActiveSpell(playerId, spell))));
-        this.plugin.getSoundManager().play(playerId, SoundType.INVENTORY_CLICKED);
+        this.spellRegistry.getSpells().forEach(spell ->
+                gui.addItem(new GuiItem(spell.getItemStack(), event -> this.activeSpellManager.setActiveSpell(playerId, spell))));
 
-        HumanEntity player = this.plugin.getServer().getPlayer(playerId);
+        this.soundManager.play(this.activeSpellManager, playerId, SoundType.INVENTORY_CLICKED);
+
+        HumanEntity player = this.server.getPlayer(playerId);
         if (player == null) {
             throw new IllegalStateException("Player cannot be null.");
         }

@@ -1,6 +1,5 @@
 package io.github.enixor.minecraft.magicmalve.listener;
 
-import io.github.enixor.minecraft.magicmalve.MagicMalvePlugin;
 import io.github.enixor.minecraft.magicmalve.spell.ActiveSpellManager;
 import io.github.enixor.minecraft.magicmalve.spell.SpellMenu;
 import org.bukkit.event.EventHandler;
@@ -13,11 +12,13 @@ import java.util.UUID;
 
 public class PlayerInteractListener implements Listener {
 
-    private final MagicMalvePlugin plugin;
+    private final ItemStack wandItemStack;
+    private final ActiveSpellManager activeSpellManager;
     private final SpellMenu spellMenu;
 
-    public PlayerInteractListener(MagicMalvePlugin plugin, SpellMenu spellMenu) {
-        this.plugin = plugin;
+    public PlayerInteractListener(ItemStack wandItemStack, ActiveSpellManager activeSpellManager, SpellMenu spellMenu) {
+        this.wandItemStack = wandItemStack;
+        this.activeSpellManager = activeSpellManager;
         this.spellMenu = spellMenu;
     }
 
@@ -25,11 +26,9 @@ public class PlayerInteractListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         UUID playerId = event.getPlayer().getUniqueId();
         ItemStack heldItem = event.getItem();
-        ItemStack wandItem = this.plugin.getWandItemStack();
         Action action = event.getAction();
-        ActiveSpellManager activeSpellManager = this.plugin.getActiveSpellManager();
 
-        if (!wandItem.isSimilar(heldItem)) {
+        if (!this.wandItemStack.isSimilar(heldItem)) {
             return;
         }
 
@@ -41,7 +40,7 @@ public class PlayerInteractListener implements Listener {
 
         // Use spell
         if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
-            activeSpellManager.executeCurrentSpell(playerId, event);
+            this.activeSpellManager.executeCurrentSpell(playerId, event);
         }
     }
 

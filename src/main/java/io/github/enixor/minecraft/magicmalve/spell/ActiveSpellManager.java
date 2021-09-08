@@ -1,10 +1,10 @@
 package io.github.enixor.minecraft.magicmalve.spell;
 
-import io.github.enixor.minecraft.magicmalve.MagicMalvePlugin;
 import io.github.enixor.minecraft.magicmalve.sound.SoundManager;
 import io.github.enixor.minecraft.magicmalve.sound.SoundType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Server;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -14,12 +14,14 @@ import java.util.UUID;
 
 public class ActiveSpellManager {
 
-    private final MagicMalvePlugin plugin;
+    private final Server server;
+    private final SoundManager soundManager;
     private final Map<UUID, Spell> currentSpell = new HashMap<>();
     private final Map<UUID, Long> lastUsed = new HashMap<>();
 
-    public ActiveSpellManager(MagicMalvePlugin plugin) {
-        this.plugin = plugin;
+    public ActiveSpellManager(Server server, SoundManager soundManager) {
+        this.server = server;
+        this.soundManager = soundManager;
     }
 
     public Spell getActiveSpell(UUID uuid) {
@@ -31,16 +33,14 @@ public class ActiveSpellManager {
     }
 
     public void executeCurrentSpell(UUID playerId, PlayerInteractEvent event) {
-        SoundManager soundManager = this.plugin.getSoundManager();
-
-        HumanEntity player = this.plugin.getServer().getPlayer(playerId);
+        HumanEntity player = this.server.getPlayer(playerId);
         if (player == null) {
             throw new IllegalStateException("Player cannot be null.");
         }
 
         if (this.getActiveSpell(playerId) == null) {
             player.sendMessage(Component.text("You need to choose a spell.", NamedTextColor.RED));
-            soundManager.play(playerId, SoundType.SPELL_NOT_CHOSEN);
+            this.soundManager.play(this, playerId, SoundType.SPELL_NOT_CHOSEN);
             return;
         }
 
@@ -48,18 +48,18 @@ public class ActiveSpellManager {
             player.sendMessage(Component.text("You need to wait ", NamedTextColor.RED)
                     .append(Component.text(this.getTimeUntilNextSpellCast(playerId) / 1000 + " seconds", NamedTextColor.YELLOW))
                     .append(Component.text(" before using it again.")));
-            soundManager.play(playerId, SoundType.DELAYED);
+            this.soundManager.play(this, playerId, SoundType.DELAYED);
             return;
         }
 
         if (!this.getActiveSpell(playerId).call(playerId, event)) {
-            soundManager.play(playerId, SoundType.FAILED);
+            this.soundManager.play(this, playerId, SoundType.FAILED);
             return;
         }
 
         this.lastUsed.put(playerId, System.currentTimeMillis());
         this.getActiveSpell(playerId).spawnParticle(playerId);
-        soundManager.play(playerId, SoundType.SUCCEED);
+        this.soundManager.play(this, playerId, SoundType.SUCCEED);
     }
 
     public long getTimeUntilNextSpellCast(UUID playerId) {

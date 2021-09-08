@@ -7,14 +7,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class MagicMalveCommand implements CommandExecutor {
 
     private final MagicMalvePlugin plugin;
+    private final ItemStack wandItemStack;
 
-    public MagicMalveCommand(MagicMalvePlugin plugin) {
+    public MagicMalveCommand(MagicMalvePlugin plugin, ItemStack wandItemStack) {
         this.plugin = plugin;
+        this.wandItemStack = wandItemStack;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class MagicMalveCommand implements CommandExecutor {
             sender.sendMessage(Component.text("Config reloaded", NamedTextColor.GREEN));
             return true;
         } else if (args[0].equalsIgnoreCase("wand")) {
-            player.getInventory().addItem(this.plugin.getWandItemStack());
+            player.getInventory().addItem(this.wandItemStack);
         }
 
         return true;

@@ -14,59 +14,42 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MagicMalvePlugin extends JavaPlugin {
 
-    private SpellRegistry spellRegistry;
-    private ActiveSpellManager activeSpellManager;
-    private ItemStack wandItemStack;
-    private SoundManager soundManager;
-
     @Override
     public void onEnable() {
-        this.spellRegistry = new SpellRegistry();
-        this.activeSpellManager = new ActiveSpellManager(this);
+        this.saveDefaultConfig();
 
         Server server = this.getServer();
+
+        SoundManager soundManager = new SoundManager(this.getServer());
+
+        ActiveSpellManager activeSpellManager = new ActiveSpellManager(this.getServer(), soundManager);
+
         PluginManager pluginManager = server.getPluginManager();
 
-        WandParser wandParser = new WandParser();
+        ItemStack wandItemStack;
         try {
             ConfigurationSection configuration = this.getConfig();
             if (!configuration.isConfigurationSection("wand")) {
                 throw new InvalidConfigurationException("Wand section does not exist.");
             }
 
-            this.wandItemStack = wandParser.parse(configuration.getConfigurationSection("wand"));
+            wandItemStack = new WandParser().parse(configuration.getConfigurationSection("wand")).clone();
         } catch (InvalidConfigurationException exception) {
             exception.printStackTrace();
             pluginManager.disablePlugin(this);
             return;
         }
 
-        this.soundManager = new SoundManager(this);
+        this.getCommand("magicmalve").setExecutor(new MagicMalveCommand(this, wandItemStack));
 
-        this.saveDefaultConfig();
+        SpellRegistry spellRegistry = new SpellRegistry();
 
-        this.spellRegistry.register(new HealSpell(server));
-        this.spellRegistry.register(new ExplodeSpell(server));
+        spellRegistry.register(new HealSpell(server));
+        spellRegistry.register(new ExplodeSpell(server));
 
-        this.getCommand("magicmalve").setExecutor(new MagicMalveCommand(this));
+        SpellMenu spellMenu = new SpellMenu(server, spellRegistry, activeSpellManager, soundManager);
 
-        pluginManager.registerEvents(new PlayerInteractListener(this, new SpellMenu(this)), this);
-    }
-
-    public SpellRegistry getSpellRegistry() {
-        return this.spellRegistry;
-    }
-
-    public ActiveSpellManager getActiveSpellManager() {
-        return this.activeSpellManager;
-    }
-
-    public ItemStack getWandItemStack() {
-        return this.wandItemStack;
-    }
-
-    public SoundManager getSoundManager() {
-        return this.soundManager;
+        pluginManager.registerEvents(new PlayerInteractListener(wandItemStack, activeSpellManager, spellMenu), this);
     }
 
 }
