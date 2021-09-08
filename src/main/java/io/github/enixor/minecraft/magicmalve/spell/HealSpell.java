@@ -9,10 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class HealSpell implements Spell {
 
@@ -24,23 +21,23 @@ public class HealSpell implements Spell {
     }
 
     @Override
-    public Sound getSucceedSound() {
-        return Sound.ENTITY_VILLAGER_YES;
+    public Optional<Sound> getSucceedSound() {
+        return Optional.of(Sound.ENTITY_VILLAGER_YES);
     }
 
     @Override
-    public Sound getDelayedSound() {
-        return Sound.ENTITY_VILLAGER_NO;
+    public Optional<Sound> getDelayedSound() {
+        return Optional.of(Sound.ENTITY_VILLAGER_NO);
     }
 
     @Override
-    public Sound getFailedSound() {
-        return Sound.ENTITY_VILLAGER_NO;
+    public Optional<Sound> getFailedSound() {
+        return Optional.of(Sound.ENTITY_VILLAGER_NO);
     }
 
     @Override
-    public Particle getParticle() {
-        return Particle.HEART;
+    public Optional<Particle> getParticle() {
+        return Optional.of(Particle.HEART);
     }
 
     @Override
@@ -107,8 +104,10 @@ public class HealSpell implements Spell {
             double size = 1;
             double x = size * Math.cos(angle);
             double z = size * Math.sin(angle);
+
             Location location = player.getLocation().add(x, 0, z);
-            player.getWorld().spawnParticle(this.getParticle(), location, 1);
+
+            this.getParticle().ifPresent(particle -> player.getWorld().spawnParticle(particle, location, 500));
         }
     }
 

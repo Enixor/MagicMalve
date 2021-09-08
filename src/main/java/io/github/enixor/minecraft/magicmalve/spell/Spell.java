@@ -5,17 +5,18 @@ import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface Spell {
 
-    Sound getSucceedSound();
+    Optional<Sound> getSucceedSound();
 
-    Sound getDelayedSound();
+    Optional<Sound> getDelayedSound();
 
-    Sound getFailedSound();
+    Optional<Sound> getFailedSound();
 
-    Particle getParticle();
+    Optional<Particle> getParticle();
 
     default long getDelay() {
         return 0;

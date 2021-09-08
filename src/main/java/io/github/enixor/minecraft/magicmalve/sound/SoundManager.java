@@ -20,9 +20,9 @@ public class SoundManager {
         Spell currentSpell = activeSpellManager.getActiveSpell(playerId);
 
         return switch (state) {
-            case SUCCEED -> currentSpell.getSucceedSound();
-            case DELAYED -> currentSpell.getDelayedSound();
-            case FAILED -> currentSpell.getFailedSound();
+            case SUCCEED -> currentSpell.getSucceedSound().orElse(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
+            case DELAYED -> currentSpell.getDelayedSound().orElse(Sound.ENTITY_VILLAGER_NO);
+            case FAILED -> currentSpell.getFailedSound().orElse(Sound.BLOCK_CHEST_CLOSE);
             case INVENTORY_CLICKED -> Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
             case SPELL_NOT_CHOSEN -> Sound.ENTITY_VILLAGER_YES;
         };
