@@ -1,5 +1,5 @@
 name: MagicMalve
-version: @version@
+version: 1.0.0
 main: io.github.enixor.minecraft.MagicMalvePlugin
 api-version: 1.17
 authors: [ Enixor ]
