@@ -35,20 +35,6 @@ public class MagicMalveCommand implements CommandExecutor {
             return true;
         } else if (args[0].equalsIgnoreCase("wand")) {
             player.getInventory().addItem(this.plugin.getWandItemStack());
-        } else if (args[0].equalsIgnoreCase("test")) {
-            if (args.length == 1) {
-                return true;
-            }
-
-            if (args[1].equalsIgnoreCase("low")) {
-                player.setHealth(2);
-                player.setFoodLevel(2);
-                return true;
-            } else if (args[1].equalsIgnoreCase("max")) {
-                player.setHealth(player.getHealthScale());
-                player.setFoodLevel(20);
-                return true;
-            }
         }
 
         return true;
