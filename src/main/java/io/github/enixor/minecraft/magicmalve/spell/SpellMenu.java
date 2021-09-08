@@ -30,6 +30,7 @@ public class SpellMenu {
         PaginatedGui gui = Gui.paginated()
                 .title(Component.text("Spell menu", NamedTextColor.DARK_GREEN))
                 .rows(4)
+                .disableAllInteractions()
                 .create();
 
         this.spellRegistry.getSpells().forEach(spell ->
