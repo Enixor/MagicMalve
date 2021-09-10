@@ -1,6 +1,6 @@
-package io.github.enixor.minecraft.magicmalve.command;
+package io.github.zrdzn.minecraft.magicmalve.command;
 
-import io.github.enixor.minecraft.magicmalve.MagicMalvePlugin;
+import io.github.zrdzn.minecraft.magicmalve.MagicMalvePlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;

@@ -1,7 +1,7 @@
-package io.github.enixor.minecraft.magicmalve.listener;
+package io.github.zrdzn.minecraft.magicmalve.listener;
 
-import io.github.enixor.minecraft.magicmalve.spell.ActiveSpellManager;
-import io.github.enixor.minecraft.magicmalve.spell.SpellMenu;
+import io.github.zrdzn.minecraft.magicmalve.spell.ActiveSpellManager;
+import io.github.zrdzn.minecraft.magicmalve.spell.SpellMenu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;

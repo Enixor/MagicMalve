@@ -1,4 +1,4 @@
-package io.github.enixor.minecraft.magicmalve.spell;
+package io.github.zrdzn.minecraft.magicmalve.spell;
 
 import java.util.ArrayList;
 import java.util.Collections;

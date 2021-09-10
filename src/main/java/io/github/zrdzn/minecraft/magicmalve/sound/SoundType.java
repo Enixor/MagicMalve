@@ -1,4 +1,4 @@
-package io.github.enixor.minecraft.magicmalve.sound;
+package io.github.zrdzn.minecraft.magicmalve.sound;
 
 public enum SoundType {
 

@@ -1,7 +1,7 @@
-package io.github.enixor.minecraft.magicmalve.sound;
+package io.github.zrdzn.minecraft.magicmalve.sound;
 
-import io.github.enixor.minecraft.magicmalve.spell.ActiveSpellManager;
-import io.github.enixor.minecraft.magicmalve.spell.Spell;
+import io.github.zrdzn.minecraft.magicmalve.spell.ActiveSpellManager;
+import io.github.zrdzn.minecraft.magicmalve.spell.Spell;
 import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;

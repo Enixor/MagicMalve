@@ -1,10 +1,11 @@
-package io.github.enixor.minecraft.magicmalve;
+package io.github.zrdzn.minecraft.magicmalve;
 
-import io.github.enixor.minecraft.magicmalve.command.MagicMalveCommand;
-import io.github.enixor.minecraft.magicmalve.listener.PlayerInteractListener;
-import io.github.enixor.minecraft.magicmalve.sound.SoundManager;
+import io.github.zrdzn.minecraft.magicmalve.command.MagicMalveCommand;
+import io.github.zrdzn.minecraft.magicmalve.listener.PlayerInteractListener;
+import io.github.zrdzn.minecraft.magicmalve.sound.SoundManager;
 import io.github.enixor.minecraft.magicmalve.spell.*;
-import io.github.enixor.minecraft.magicmalve.wand.WandParser;
+import io.github.zrdzn.minecraft.magicmalve.spell.*;
+import io.github.zrdzn.minecraft.magicmalve.wand.WandParser;
 import org.bukkit.Server;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;

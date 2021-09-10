@@ -1,10 +1,10 @@
-package io.github.enixor.minecraft.magicmalve.spell;
+package io.github.zrdzn.minecraft.magicmalve.spell;
 
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import dev.triumphteam.gui.guis.PaginatedGui;
-import io.github.enixor.minecraft.magicmalve.sound.SoundManager;
-import io.github.enixor.minecraft.magicmalve.sound.SoundType;
+import io.github.zrdzn.minecraft.magicmalve.sound.SoundManager;
+import io.github.zrdzn.minecraft.magicmalve.sound.SoundType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Server;

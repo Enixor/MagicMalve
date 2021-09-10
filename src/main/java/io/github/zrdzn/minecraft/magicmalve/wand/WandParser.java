@@ -1,4 +1,4 @@
-package io.github.enixor.minecraft.magicmalve.wand;
+package io.github.zrdzn.minecraft.magicmalve.wand;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;

@@ -1,4 +1,4 @@
-package io.github.enixor.minecraft.magicmalve.spell;
+package io.github.zrdzn.minecraft.magicmalve.spell;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
