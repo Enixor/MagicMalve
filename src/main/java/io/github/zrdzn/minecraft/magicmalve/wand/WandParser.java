@@ -34,7 +34,7 @@ public class WandParser {
         itemMeta.lore(lore);
         itemStack.setItemMeta(itemMeta);
 
-        return itemStack;
+        return itemStack.clone();
     }
 
 }
