@@ -1,6 +1,6 @@
 package io.github.zrdzn.minecraft.magicmalve.spell;
 
-import io.github.zrdzn.minecraft.magicmalve.sound.SoundManager;
+import io.github.zrdzn.minecraft.magicmalve.sound.SoundService;
 import io.github.zrdzn.minecraft.magicmalve.sound.SoundType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,13 +15,13 @@ import java.util.UUID;
 public class ActiveSpellManager {
 
     private final Server server;
-    private final SoundManager soundManager;
+    private final SoundService soundService;
     private final Map<UUID, Spell> currentSpell = new HashMap<>();
     private final Map<UUID, Long> lastUsed = new HashMap<>();
 
-    public ActiveSpellManager(Server server, SoundManager soundManager) {
+    public ActiveSpellManager(Server server, SoundService soundService) {
         this.server = server;
-        this.soundManager = soundManager;
+        this.soundService = soundService;
     }
 
     public Spell getActiveSpell(UUID uuid) {
@@ -40,7 +40,7 @@ public class ActiveSpellManager {
 
         if (this.getActiveSpell(playerId) == null) {
             player.sendMessage(Component.text("You need to choose a spell.", NamedTextColor.RED));
-            this.soundManager.play(this, playerId, SoundType.SPELL_NOT_CHOSEN);
+            this.soundService.play(this, playerId, SoundType.SPELL_NOT_CHOSEN);
             return;
         }
 
@@ -48,18 +48,18 @@ public class ActiveSpellManager {
             player.sendMessage(Component.text("You need to wait ", NamedTextColor.RED)
                     .append(Component.text(this.getTimeUntilNextSpellCast(playerId) / 1000 + " seconds", NamedTextColor.YELLOW))
                     .append(Component.text(" before using it again.")));
-            this.soundManager.play(this, playerId, SoundType.DELAYED);
+            this.soundService.play(this, playerId, SoundType.DELAYED);
             return;
         }
 
         if (!this.getActiveSpell(playerId).call(playerId, event)) {
-            this.soundManager.play(this, playerId, SoundType.FAILED);
+            this.soundService.play(this, playerId, SoundType.FAILED);
             return;
         }
 
         this.lastUsed.put(playerId, System.currentTimeMillis());
         this.getActiveSpell(playerId).spawnParticle(playerId);
-        this.soundManager.play(this, playerId, SoundType.SUCCEED);
+        this.soundService.play(this, playerId, SoundType.SUCCEED);
     }
 
     public long getTimeUntilNextSpellCast(UUID playerId) {

@@ -8,11 +8,11 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.UUID;
 
-public class SoundManager {
+public class SoundService {
 
     private final Server server;
 
-    public SoundManager(Server server) {
+    public SoundService(Server server) {
         this.server = server;
     }
 

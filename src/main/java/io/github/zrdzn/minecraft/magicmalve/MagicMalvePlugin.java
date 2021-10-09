@@ -2,7 +2,7 @@ package io.github.zrdzn.minecraft.magicmalve;
 
 import io.github.zrdzn.minecraft.magicmalve.spell.SpellCommand;
 import io.github.zrdzn.minecraft.magicmalve.wand.WandListener;
-import io.github.zrdzn.minecraft.magicmalve.sound.SoundManager;
+import io.github.zrdzn.minecraft.magicmalve.sound.SoundService;
 import io.github.zrdzn.minecraft.magicmalve.spell.ActiveSpellManager;
 import io.github.zrdzn.minecraft.magicmalve.spell.spells.ExplodeSpell;
 import io.github.zrdzn.minecraft.magicmalve.spell.spells.HealSpell;
@@ -24,9 +24,9 @@ public class MagicMalvePlugin extends JavaPlugin {
 
         Server server = this.getServer();
 
-        SoundManager soundManager = new SoundManager(this.getServer());
+        SoundService soundService = new SoundService(this.getServer());
 
-        ActiveSpellManager activeSpellManager = new ActiveSpellManager(this.getServer(), soundManager);
+        ActiveSpellManager activeSpellManager = new ActiveSpellManager(this.getServer(), soundService);
 
         PluginManager pluginManager = server.getPluginManager();
 
@@ -51,7 +51,7 @@ public class MagicMalvePlugin extends JavaPlugin {
         spellRegistry.register(new HealSpell(server));
         spellRegistry.register(new ExplodeSpell(server));
 
-        SpellMenu spellMenu = new SpellMenu(server, spellRegistry, activeSpellManager, soundManager);
+        SpellMenu spellMenu = new SpellMenu(server, spellRegistry, activeSpellManager, soundService);
 
         pluginManager.registerEvents(new WandListener(wandItemStack, activeSpellManager, spellMenu), this);
     }
