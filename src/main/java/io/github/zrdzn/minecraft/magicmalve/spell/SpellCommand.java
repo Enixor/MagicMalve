@@ -1,4 +1,4 @@
-package io.github.zrdzn.minecraft.magicmalve.command;
+package io.github.zrdzn.minecraft.magicmalve.spell;
 
 import io.github.zrdzn.minecraft.magicmalve.MagicMalvePlugin;
 import net.kyori.adventure.text.Component;
@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class MagicMalveCommand implements CommandExecutor {
+public class SpellCommand implements CommandExecutor {
 
     private final MagicMalvePlugin plugin;
     private final ItemStack wandItemStack;
 
-    public MagicMalveCommand(MagicMalvePlugin plugin, ItemStack wandItemStack) {
+    public SpellCommand(MagicMalvePlugin plugin, ItemStack wandItemStack) {
         this.plugin = plugin;
         this.wandItemStack = wandItemStack;
     }

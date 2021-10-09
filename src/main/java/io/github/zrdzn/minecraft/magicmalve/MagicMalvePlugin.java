@@ -1,11 +1,11 @@
 package io.github.zrdzn.minecraft.magicmalve;
 
-import io.github.zrdzn.minecraft.magicmalve.command.MagicMalveCommand;
-import io.github.zrdzn.minecraft.magicmalve.listener.PlayerInteractListener;
+import io.github.zrdzn.minecraft.magicmalve.spell.SpellCommand;
+import io.github.zrdzn.minecraft.magicmalve.wand.WandListener;
 import io.github.zrdzn.minecraft.magicmalve.sound.SoundManager;
 import io.github.zrdzn.minecraft.magicmalve.spell.ActiveSpellManager;
-import io.github.zrdzn.minecraft.magicmalve.spell.ExplodeSpell;
-import io.github.zrdzn.minecraft.magicmalve.spell.HealSpell;
+import io.github.zrdzn.minecraft.magicmalve.spell.spells.ExplodeSpell;
+import io.github.zrdzn.minecraft.magicmalve.spell.spells.HealSpell;
 import io.github.zrdzn.minecraft.magicmalve.spell.SpellMenu;
 import io.github.zrdzn.minecraft.magicmalve.spell.SpellRegistry;
 import io.github.zrdzn.minecraft.magicmalve.wand.WandParser;
@@ -44,7 +44,7 @@ public class MagicMalvePlugin extends JavaPlugin {
             return;
         }
 
-        this.getCommand("magicmalve").setExecutor(new MagicMalveCommand(this, wandItemStack));
+        this.getCommand("magicmalve").setExecutor(new SpellCommand(this, wandItemStack));
 
         SpellRegistry spellRegistry = new SpellRegistry();
 
@@ -53,7 +53,7 @@ public class MagicMalvePlugin extends JavaPlugin {
 
         SpellMenu spellMenu = new SpellMenu(server, spellRegistry, activeSpellManager, soundManager);
 
-        pluginManager.registerEvents(new PlayerInteractListener(wandItemStack, activeSpellManager, spellMenu), this);
+        pluginManager.registerEvents(new WandListener(wandItemStack, activeSpellManager, spellMenu), this);
     }
 
 }

@@ -1,4 +1,4 @@
-package io.github.zrdzn.minecraft.magicmalve.listener;
+package io.github.zrdzn.minecraft.magicmalve.wand;
 
 import io.github.zrdzn.minecraft.magicmalve.spell.ActiveSpellManager;
 import io.github.zrdzn.minecraft.magicmalve.spell.SpellMenu;
@@ -10,13 +10,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
-public class PlayerInteractListener implements Listener {
+public class WandListener implements Listener {
 
     private final ItemStack wandItemStack;
     private final ActiveSpellManager activeSpellManager;
     private final SpellMenu spellMenu;
 
-    public PlayerInteractListener(ItemStack wandItemStack, ActiveSpellManager activeSpellManager, SpellMenu spellMenu) {
+    public WandListener(ItemStack wandItemStack, ActiveSpellManager activeSpellManager, SpellMenu spellMenu) {
         this.wandItemStack = wandItemStack;
         this.activeSpellManager = activeSpellManager;
         this.spellMenu = spellMenu;

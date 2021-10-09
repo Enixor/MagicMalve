@@ -1,5 +1,6 @@
-package io.github.zrdzn.minecraft.magicmalve.spell;
+package io.github.zrdzn.minecraft.magicmalve.spell.spells;
 
+import io.github.zrdzn.minecraft.magicmalve.spell.Spell;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
